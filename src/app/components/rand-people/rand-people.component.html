@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-11">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-4">Random People</h1>
+                    <form action="">
+                        <div class="form-group">
+                            <label for="numberOfGroups" class="col-sm-2 col-form-label">№ of Teams</label>
+                            <div>
+                                <input name="teams" type="number" [(ngModel)]="numberOfTeams" #numberOfGroups class="form-control"
+                                    placeholder="№ of Teams">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <form #form="ngForm">
+                                <label class="col-sm-2 col-form-label">Peoples</label>
+                                <div class="form-group mb-3">
+                                    <div *ngFor="let item of peoples; let i = index; trackBy:trackByFn">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">{{i + 1}}</div>
+                                            <input name="item-{{i}}" [(ngModel)]="peoples[i]" type="text"
+                                                class="form-control" placeholder="Name" />
+
+                                            <div class="input-group-append padd">
+                                                <button (click)="removeName(i)" class="btn btn-warning"
+                                                    type="button">-</button>
+                                            </div>
+                                            <div *ngIf="i + 1 === peoples.length">
+                                                <div class="input-group-append padd">
+                                                    <button (click)="addName()" class="btn btn-primary"
+                                                        type="button">+</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </form>
+                    <div>
+                        <button (click)="generateTeams()" type="button" class="btn btn-primary">RANDOM!</button>
+                    </div>
+                    <div *ngFor="let team of generatedTeams; let i = index">
+                        {{i + 1}} {{team}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-1">
+        </div>
+    </div>
+</div>
