@@ -13,6 +13,7 @@ export class RandPeopleComponent implements OnInit {
   peoples: String[];
   generatedTeams: String[][];
   numberOfTeams: number;
+  playersInTeam: number;
   constructor(private randomService: RandomServiceService) {
   }
 
@@ -43,11 +44,18 @@ export class RandPeopleComponent implements OnInit {
     const tmp = [...this.peoples];
     for (let i = 0; i < this.numberOfTeams; i++) {
       const team = new Array();
-      for (let j = 0; j < this.numberOfTeams; j++) {
-        team.push(tmp.splice(this.randomService.randInt(0, tmp.length - 1), 1)[0]);
+      for (let j = 0; j < this.playersInTeam; j++) {
+        const item = tmp.splice(this.randomService.randInt(0, tmp.length - 1), 1)[0];
+        if (item) {
+          team.push(item);
+        }
       }
       this.generatedTeams.push(team);
     }
-    console.log(this.generatedTeams);
+    for (let i = 0; i < this.generatedTeams.length; i++) {
+      if (this.generatedTeams[i].length === 0) {
+        this.generatedTeams.splice(i, 1);
+      }
+    }
   }
 }
